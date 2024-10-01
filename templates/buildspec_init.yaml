@@ -14,15 +14,15 @@ phases:
       - "yum install -y yum-utils"
       - "yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo"
       - "yum -y install terraform"
-    builds:
-      commands:
-        - "cd ${CODEBUILD_SRC_DIR}/${CODE_SRC_DIR}"
-        - "terraform init"
-        - "echo ## TERRAFORM PLAN : Generate the Terraform Plan"
-        - "terraform plan -out tfapply"
-    post_build:
-      commands:
-        - "echo Terraform init build completed on `date`"
+  build:
+    commands:
+      - "cd ${CODEBUILD_SRC_DIR}/${CODE_SRC_DIR}"
+      - "terraform init"
+      - "echo ## TERRAFORM PLAN : Generate the Terraform Plan"
+      - "terraform plan -out tfapply"
+  post_build:
+    commands:
+      - "echo Terraform init build completed on `date`"
 artifacts:
   files:
     - '**/*'
