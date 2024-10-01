@@ -1,0 +1,29 @@
+# buildspec file for terraform destroy
+
+version : 0.2
+
+env:
+  variables:
+    CODE_SRC_DIR: "."
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+    commands:
+      - "yum install -y yum-utils"
+      - "yum-config-manager -add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo"
+      - "yum -y install terraform"
+    builds:
+      commands:
+        - "cd ${CODEBUILD_SRC_DIR}/${CODE_SRC_DIR}"
+        - "echo ## TERRAFORM DESTROY : Destroy the Terraform Plan"
+        - "terraform init"
+        - "terraform destroy --auto-approve"
+    post_build:
+      commands:
+        - "echo Terraform destroy build completed on `date`"
+
+artifacts:
+  files:
+    - '**/*'
