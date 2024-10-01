@@ -19,5 +19,6 @@ variable "s3_bucket_name" {
 }
 
 variable "name" {
-    default = "Name of the EC2 instance"
+    description = "Name of the EC2 instance"
+    default = "codepipeline"
 }
