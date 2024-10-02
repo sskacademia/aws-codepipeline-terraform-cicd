@@ -21,7 +21,7 @@ phases:
       - "terraform validate -json"
   post_build:
     commands:
-      - "echo Terraform validate build completed on `date`"
+      - echo Terraform validate build completed on `date`
 
 artifacts:
   files:
